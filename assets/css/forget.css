@@ -1,0 +1,25 @@
+body{
+    background-color: #f0f2f5;
+    font-family:inherit;
+}
+.forget{
+    display:block;
+    margin:0 auto;
+    text-align: center;
+}
+header{
+    background-color: white;
+    padding-bottom:10px;
+}
+.setpass{
+    margin-top:100px;
+}
+.card{
+    width:90%;
+    border-radius: 10px;
+}
+.btn{
+    display:block;
+    margin:0 auto;
+    float:right;
+}

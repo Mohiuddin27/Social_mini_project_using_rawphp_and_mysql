@@ -36,7 +36,7 @@ if(userlogincheck()==false){
 	
      <section class="users">
          <div class="container">
-             <div class="row">
+             <div class="row mb-3">
                  <?php
                    $all_uses=all('users');
                    while($user=$all_uses->fetch_object()):

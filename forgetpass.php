@@ -44,6 +44,32 @@ if(userlogincheck()==true){
 		   }
 	   }
     ?>
+    <?php
+
+            if(isset($_POST['submit'])){
+                $email=$_POST['email'];
+                $npass=$_POST['npass'];
+                $hash_pass=gethash($npass);
+                if(empty($email) || empty($npass)){
+                $msg=validate('All fields are required','danger');
+            }else{
+                $login_user_data=authcheck('users','email',$email);
+                if($login_user_data !== false){
+                    $_SESSION['id']=$login_user_data->id;
+                    connect()->query("UPDATE users SET password='$hash_pass' WHERE id='$login_user_data->id'");
+                    $msg=validate("Password change successfully",'success');
+                }
+                else{
+                    $msg=validate('Email is invalid','warning');
+                }
+            }
+
+            }
+
+
+
+?>
+
    <header class="shadow">
 
     <div class="row">
@@ -69,40 +95,10 @@ if(userlogincheck()==true){
         </div>
         
     </div>
-<?php
-
-  if(isset($_POST['submit'])){
-      $email=$_POST['email'];
-      $npass=$_POST['npass'];
-      $hash_pass=gethash($npass);
-      if(empty($email) || empty($npass)){
-        $msg=validate('All fields are required','danger');
-    }else{
-        $login_user_data=authcheck('users','email',$email);
-        if($login_user_data !== false){
-            $_SESSION['id']=$login_user_data->id;
-			$_SESSION['name']=$login_user_data->name;
-			$_SESSION['email']=$login_user_data->email;
-			$_SESSION['username']=$login_user_data->username;
-			$_SESSION['cell']=$login_user_data->cell;
-			$_SESSION['gender']=$login_user_data->gender;
-			$_SESSION['photo']=$login_user_data->photo;
-            connect()->query("UPDATE users SET password='$hash_pass' WHERE id='$login_user_data->id'");
-            $msg=validate("Password change successfully",'success');
-        }
-        else{
-            $msg=validate('Email is invalid','warning');
-        }
-    }
-
-  }
+    </header>
 
 
 
-?>
-
-
-</header>
     <section class="setpass"> 
        <div class="container">
            <div class="row">
@@ -140,11 +136,13 @@ if(userlogincheck()==true){
            </div>
        </div>
        
-    <section>
-        <div class="row">
-            <div class="col-md-2 offset-md-5 mt-3 mb-3">
+    </section>
+        <div class="container">
+    <div class="row">
+        <div class="col-md-2 offset-md-5 mt-3">
             <a href="index.php" class="text-center">Back to Login page</a>
             </div>
+        </div>
         </div>
         
 
